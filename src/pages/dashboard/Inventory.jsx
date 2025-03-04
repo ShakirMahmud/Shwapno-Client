@@ -79,55 +79,69 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`/api/productProxy?barcode=${barcode}`);
-            const data = await response.json();
-
-            if (data.status) {
-                if (productsInDB.some((p) => p.barcode === data.product.barcode)) {
-                    Swal.fire("Error", "Product already exists in the database.", "error");
-                    setImage(null);
-                    setBarcode("");
-                    return;
-                }
-
-                const product = {
-                    material: data.product.material,
-                    barcode: data.product.barcode,
-                    description: data.product.description,
-                    category: "Uncategorized",
-                };
-
-                const postResponse = await fetch("https://shwapno-server.vercel.app/products", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(product),
-                });
-
-                if (postResponse.status === 400) {
-                    Swal.fire("Error", "Product already exists in the database.", "error");
-                    setImage(null);
-                    setBarcode("");
-                    return;
-                }
-
-                if (postResponse.ok) {
-                    Swal.fire("Success", "Product added successfully!", "success");
-                    setProductsInDB((prevProducts) => [...prevProducts, product]);
-
-                    fetchUpdatedProducts();
-                    setImage(null);
-                    setBarcode("");
-                }
-            } else {
-                throw new Error("Product not found");
-            }
-        } catch (error) {
-            console.error("Fetch error:", error);
-            Swal.fire("Error", "Product not found or server error.", "error");
+          const response = await fetch(`/api/productProxy?barcode=${barcode}`); // Call your Vercel function
+      
+          if (!response.ok) {
+            const errorData = await response.json(); // Parse the JSON error response
+            console.error("Fetch error:", errorData);
+            Swal.fire("Error", errorData.error || "Product not found or server error.", "error"); // Use errorData.error
             setImage(null);
             setBarcode("");
+            return; // Important: Exit the function after handling the error
+          }
+      
+          const data = await response.json();
+      
+          if (data.status) {
+            if (productsInDB.some((p) => p.barcode === data.product.barcode)) {
+              Swal.fire("Error", "Product already exists in the database.", "error");
+              setImage(null);
+              setBarcode("");
+              return;
+            }
+      
+            const product = {
+              material: data.product.material,
+              barcode: data.product.barcode,
+              description: data.product.description,
+              category: "Uncategorized",
+            };
+      
+            const postResponse = await fetch("https://shwapno-server.vercel.app/products", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(product),
+            });
+      
+            if (postResponse.status === 400) {
+              Swal.fire("Error", "Product already exists in the database.", "error");
+              setImage(null);
+              setBarcode("");
+              return;
+            }
+      
+            if (postResponse.ok) {
+              Swal.fire("Success", "Product added successfully!", "success");
+              setProductsInDB((prevProducts) => [...prevProducts, product]);
+      
+              fetchUpdatedProducts();
+              setImage(null);
+              setBarcode("");
+            }
+          } else {
+            // The API returned a JSON response, but data.status is false
+            Swal.fire("Error", "Product not found", "error");
+            setImage(null);
+            setBarcode("");
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          Swal.fire("Error", "Product not found or server error.", "error");
+          setImage(null);
+          setBarcode("");
         }
-    };
+      };
+      
 
 
 

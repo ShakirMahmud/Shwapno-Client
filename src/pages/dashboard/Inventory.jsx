@@ -79,9 +79,9 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`https://products-test-aci.onrender.com/api/product/${barcode}`);
+            const response = await fetch(`/src/api/productProxy?barcode=${barcode}`);
             const data = await response.json();
-    
+
             if (data.status) {
                 if (productsInDB.some((p) => p.barcode === data.product.barcode)) {
                     Swal.fire("Error", "Product already exists in the database.", "error");
@@ -89,31 +89,31 @@ const Inventory = () => {
                     setBarcode("");
                     return;
                 }
-    
+
                 const product = {
                     material: data.product.material,
                     barcode: data.product.barcode,
                     description: data.product.description,
                     category: "Uncategorized",
                 };
-    
+
                 const postResponse = await fetch("https://shwapno-server.vercel.app/products", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(product),
                 });
-    
+
                 if (postResponse.status === 400) {
                     Swal.fire("Error", "Product already exists in the database.", "error");
                     setImage(null);
                     setBarcode("");
                     return;
                 }
-    
+
                 if (postResponse.ok) {
                     Swal.fire("Success", "Product added successfully!", "success");
                     setProductsInDB((prevProducts) => [...prevProducts, product]);
-    
+
                     fetchUpdatedProducts();
                     setImage(null);
                     setBarcode("");
@@ -128,8 +128,8 @@ const Inventory = () => {
             setBarcode("");
         }
     };
-    
-    
+
+
 
     const handleDeleteProduct = async (id) => {
         Swal.fire({
@@ -146,11 +146,11 @@ const Inventory = () => {
                     const response = await fetch(`https://shwapno-server.vercel.app/products/${id}`, {
                         method: "DELETE",
                     });
-    
+
                     if (!response.ok) {
                         throw new Error("Failed to delete product");
                     }
-    
+
                     Swal.fire("Deleted!", "Product has been deleted.", "success");
 
                     fetchUpdatedProducts();
@@ -171,7 +171,7 @@ const Inventory = () => {
             console.error("Error fetching updated products:", error);
         }
     };
-    
+
     return (
         <div className="min-h-screen bg-gray-100 py-6">
             <div className="container mx-auto px-4">

@@ -79,7 +79,7 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-          const response = await fetch(`/src/api/productProxy?barcode=${barcode}`); // Call your Vercel function
+          const response = await fetch(`/api/productProxy?barcode=${barcode}`); // Call your Vercel function
       
           if (!response.ok) {
             const errorData = await response.json(); // Parse the JSON error response

@@ -4,10 +4,11 @@ export default async function handler(req, res) {
   
     try {
       const response = await fetch(`https://products-test-aci.onrender.com/api/product/${barcode}`);
+      console.log(response);
   
       if (!response.ok) {
         console.log(response);
-        return res.status(response.status).json({ error: `Failed to fetch product: ${response.statusText}` }); // Handle non-200 responses properly
+        return res.status(response.status).json({ error: `Failed to fetch product: ${response.statusText}` });
       }
   
       const data = await response.json();

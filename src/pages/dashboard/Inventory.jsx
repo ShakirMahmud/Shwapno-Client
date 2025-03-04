@@ -79,10 +79,15 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`https://products-test-aci.onrender.com/product/${barcode}`,{
-                mode: "no-cors"
+            const response = await fetch(`https://products-test-aci.onrender.com/product/${barcode}`, {
+                mode: "no-cors",
             });
-            const data = await response.json();
+    
+            if (!response.ok) {
+                throw new Error("Failed to fetch product");
+            }
+    
+            const data = await response.json(); // This could throw an error if the response is not valid JSON.
     
             if (data.status) {
                 if (productsInDB.some((p) => p.barcode === data.product.barcode)) {
@@ -130,6 +135,7 @@ const Inventory = () => {
             setBarcode("");
         }
     };
+    
     
     
 

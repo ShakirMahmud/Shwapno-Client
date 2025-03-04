@@ -79,7 +79,7 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`/src/api/productProxy?barcode=${barcode}`);
+            const response = await fetch(`/api/productProxy?barcode=${barcode}`);
             const data = await response.json();
 
             if (data.status) {

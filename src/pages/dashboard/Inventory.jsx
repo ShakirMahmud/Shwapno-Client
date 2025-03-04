@@ -79,7 +79,9 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`https://products-test-aci.onrender.com/product/${barcode}`);
+            const response = await fetch(`https://products-test-aci.onrender.com/product/${barcode}`,{
+                mode: "no-cors"
+            });
             const data = await response.json();
     
             if (data.status) {

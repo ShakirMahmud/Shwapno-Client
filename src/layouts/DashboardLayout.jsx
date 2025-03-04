@@ -41,7 +41,6 @@ const DashboardLayout = () => {
                         {user ? (
                             <div className="flex items-center gap-2">
                                 <img src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/1144/1144760.png"} alt="User Avatar" className="rounded-full w-8 h-8" />
-                                {/* tooltip */}
                                 <div className="tooltip tooltip-bottom" data-tip={user.email}>
                                     <span className="text-sm font-semibold">{user.displayName || "User"}</span>
                                 </div>
@@ -71,7 +70,6 @@ const DashboardLayout = () => {
                     </div>
                 </div>
 
-                {/* Outlet for dynamic content */}
                 <div className="p-6 overflow-auto flex-1">
                     <Outlet />
                 </div>

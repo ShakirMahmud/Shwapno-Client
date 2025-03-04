@@ -27,12 +27,10 @@ const Inventory = () => {
                 scanBarcode(e.target.result);
             };
             reader.readAsDataURL(file);
-
-            // Clear the input value to allow re-selection of the same file
             event.target.value = null;
         } else {
             setImage(null);
-            setBarcode(""); // Clear barcode if no file is selected
+            setBarcode("");
         }
     };
 
@@ -74,7 +72,7 @@ const Inventory = () => {
             }
             else {
                 setImage(null);
-                setBarcode(""); // Clear barcode if the manual input is cancelled
+                setBarcode("");
             }
         });
     };
@@ -115,8 +113,7 @@ const Inventory = () => {
                 if (postResponse.ok) {
                     Swal.fire("Success", "Product added successfully!", "success");
                     setProductsInDB((prevProducts) => [...prevProducts, product]);
-    
-                    // ✅ Fetch updated products from backend after adding
+
                     fetchUpdatedProducts();
                     setImage(null);
                     setBarcode("");
@@ -154,8 +151,7 @@ const Inventory = () => {
                     }
     
                     Swal.fire("Deleted!", "Product has been deleted.", "success");
-    
-                    // ✅ Fetch updated products from backend after deletion
+
                     fetchUpdatedProducts();
                 } catch (error) {
                     console.error("Error deleting product:", error);
@@ -169,22 +165,17 @@ const Inventory = () => {
         try {
             const response = await fetch("http://localhost:5000/products");
             const data = await response.json();
-            setProductsInDB(data); // ✅ Updates state with latest data
+            setProductsInDB(data);
         } catch (error) {
             console.error("Error fetching updated products:", error);
         }
     };
     
-    
-
     return (
         <div className="min-h-screen bg-gray-100 py-6">
             <div className="container mx-auto px-4">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">📦 Inventory Management</h1>
-
-                {/* Upload & Input Section */}
                 <div className="flex flex-col md:flex-row items-center justify-around gap-4 mb-6">
-                    {/* Custom File Input */}
                     <div className="relative w-full max-w-xl">
                         <label className="flex items-center justify-between border border-gray-300 rounded-lg px-4 py-2 cursor-pointer hover:border-blue-500 transition">
                             <span className="flex items-center gap-2 text-gray-600">
@@ -203,7 +194,6 @@ const Inventory = () => {
                     </div>
                     {image && typeof image === 'string' && <img src={image} alt="Uploaded Barcode" className="max-w-[100px] rounded-lg shadow-md" />}
 
-                    {/* Barcode Input */}
                     <input
                         type="text"
                         placeholder="Enter barcode manually"
@@ -212,7 +202,6 @@ const Inventory = () => {
                         className="border border-gray-300 p-2 rounded-lg w-full md:w-1/2 shadow-sm"
                     />
 
-                    {/* Scan Button */}
                     <button
                         onClick={() => fetchProduct(barcode)}
                         className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition"

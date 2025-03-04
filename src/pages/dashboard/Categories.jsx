@@ -3,7 +3,6 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import Swal from 'sweetalert2';
 import { Search, Plus } from 'lucide-react';
 
-// Sortable Product Item Component
 const ProductItem = ({ product, index }) => {
     return (
         <Draggable draggableId={product._id} index={index}>
@@ -313,8 +312,6 @@ const Categories = () => {
         }
     };
     
-
-
     // Category Column Component
     const CategoryColumn = ({ id, title, products }) => {
         return (
@@ -351,7 +348,6 @@ const Categories = () => {
     return (
         <div className="bg-gray-50 min-h-screen">
             <div className="container mx-auto px-4 py-6">
-                {/* Header with Search */}
                 <div className="flex flex-col md:flex-row items-center justify-between mb-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Inventory Management</h1>
 
@@ -378,7 +374,6 @@ const Categories = () => {
                     </div>
                 </div>
 
-                {/* Categories and Products */}
                 <DragDropContext onDragEnd={handleDragEnd}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {['Uncategorized', ...categories.map(cat => cat.id)].filter(categoryId => visibleCategoryIds.has(categoryId)).map(categoryId => (

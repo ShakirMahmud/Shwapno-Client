@@ -56,7 +56,7 @@ const Analytics = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        {/* Products per Category */}
+        {/* Products in every Category */}
         <div className="bg-white shadow-md rounded-lg p-4 h-[400px]">
           <h2 className="text-lg font-semibold mb-2">Products per Category</h2>
           <ResponsiveContainer width="100%" height="80%">
@@ -70,7 +70,7 @@ const Analytics = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Top Categories Pie Chart */}
+        {/* Top Categories */}
         <div className="bg-white shadow-md rounded-lg p-4 h-[400px]">
           <h2 className="text-lg font-semibold mb-2">Category Distribution</h2>
           <ResponsiveContainer width="100%" height="80%">
@@ -99,7 +99,7 @@ const Analytics = () => {
         </div>
       </div>
 
-      {/* Product Details */}
+      {/* Recently Added Product Details */}
       <div className="bg-white shadow-md rounded-lg p-4 hidden lg:block">
         <h2 className="text-lg font-semibold mb-4">Recently Added Product Details</h2>
         <div className="overflow-x-auto">

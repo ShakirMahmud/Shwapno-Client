@@ -79,7 +79,6 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-          // Call your backend's proxy route
           const response = await fetch(`https://shwapno-server.vercel.app/api/proxy/product/${barcode}`);  
       
           if (!response.ok) {

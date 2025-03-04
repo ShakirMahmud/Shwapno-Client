@@ -13,7 +13,7 @@ const Inventory = () => {
     }, [productsInDB]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/products")
+        fetch("https://shwapno-server.vercel.app/products")
             .then((res) => res.json())
             .then((data) => setProductsInDB(data));
     }, []);
@@ -97,7 +97,7 @@ const Inventory = () => {
                     category: "Uncategorized",
                 };
     
-                const postResponse = await fetch("http://localhost:5000/products", {
+                const postResponse = await fetch("https://shwapno-server.vercel.app/products", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(product),
@@ -142,7 +142,7 @@ const Inventory = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await fetch(`http://localhost:5000/products/${id}`, {
+                    const response = await fetch(`https://shwapno-server.vercel.app/products/${id}`, {
                         method: "DELETE",
                     });
     
@@ -163,7 +163,7 @@ const Inventory = () => {
 
     const fetchUpdatedProducts = async () => {
         try {
-            const response = await fetch("http://localhost:5000/products");
+            const response = await fetch("https://shwapno-server.vercel.app/products");
             const data = await response.json();
             setProductsInDB(data);
         } catch (error) {

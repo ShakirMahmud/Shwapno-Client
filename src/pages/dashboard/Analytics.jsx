@@ -9,7 +9,7 @@ const Analytics = () => {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/stats')
+    fetch('https://shwapno-server.vercel.app/stats')
       .then(res => res.json())
       .then(data => setStats(data));
   }, []);

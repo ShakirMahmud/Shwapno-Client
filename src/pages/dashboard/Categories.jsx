@@ -35,7 +35,7 @@ const Categories = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("http://localhost:5000/products");
+                const response = await fetch("https://shwapno-server.vercel.app/products");
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
@@ -53,7 +53,7 @@ const Categories = () => {
 
         const fetchCategories = async () => {
             try {
-                const response = await fetch("http://localhost:5000/categories");
+                const response = await fetch("https://shwapno-server.vercel.app/categories");
                 if (!response.ok) {
                     throw new Error("Failed to fetch categories");
                 }
@@ -135,7 +135,7 @@ const Categories = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/products/${productId}`, {
+            const response = await fetch(`https://shwapno-server.vercel.app/products/${productId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -187,7 +187,7 @@ const Categories = () => {
                     return updated;
                 });
 
-                fetch('http://localhost:5000/categories', {
+                fetch('https://shwapno-server.vercel.app/categories', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -225,7 +225,7 @@ const Categories = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await fetch(`http://localhost:5000/categories/${id}`, {
+                    const response = await fetch(`https://shwapno-server.vercel.app/categories/${id}`, {
                         method: "DELETE",
                     });
 
@@ -280,7 +280,7 @@ const Categories = () => {
         }
     
         try {
-            const productResponse = await fetch(`http://localhost:5000/products?search=${query}`);
+            const productResponse = await fetch(`https://shwapno-server.vercel.app/products?search=${query}`);
             if (!productResponse.ok) {
                 throw new Error("Failed to fetch products");
             }
@@ -291,7 +291,7 @@ const Categories = () => {
             }));
             setFilteredProducts(productsWithDefaultCategory);
     
-            const categoryResponse = await fetch(`http://localhost:5000/categories?search=${query}`);
+            const categoryResponse = await fetch(`https://shwapno-server.vercel.app/categories?search=${query}`);
             if (!categoryResponse.ok) {
                 throw new Error("Failed to fetch categories");
             }

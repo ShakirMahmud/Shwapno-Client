@@ -79,7 +79,7 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`https://cors-anywhere.herokuapp.com/https://products-test-aci.onrender.com/api/product/${barcode}`);
+            const response = await fetch(`https://api.allorigins.win/raw?url=https://products-test-aci.onrender.com/api/product/${barcode}`);
             const data = await response.json();
     
             if (data.status) {

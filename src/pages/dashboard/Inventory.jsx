@@ -79,7 +79,7 @@ const Inventory = () => {
 
     const fetchProduct = async (barcode) => {
         try {
-            const response = await fetch(`/api/product/${barcode}`);
+            const response = await fetch(`https://products-test-aci.onrender.com/api/product/${barcode}`);
             const data = await response.json();
     
             if (data.status) {
@@ -113,7 +113,7 @@ const Inventory = () => {
                 if (postResponse.ok) {
                     Swal.fire("Success", "Product added successfully!", "success");
                     setProductsInDB((prevProducts) => [...prevProducts, product]);
-
+    
                     fetchUpdatedProducts();
                     setImage(null);
                     setBarcode("");
@@ -128,6 +128,7 @@ const Inventory = () => {
             setBarcode("");
         }
     };
+    
     
 
     const handleDeleteProduct = async (id) => {
